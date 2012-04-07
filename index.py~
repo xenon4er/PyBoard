@@ -34,9 +34,9 @@ try:
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
 
-   content = rendersections(conf.conf,db,tmpr)
+   content = rendersections(conf.conf,db,tmpr,3)
 
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title})
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content})
    
 
 except PyBoardException, e:
