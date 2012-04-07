@@ -1,5 +1,5 @@
 
-<form action = index.py method=get>
+<form action = index.py method=post>
 	<input type = hidden name = action value = login />
 	<p>Login:</p>
 	<input type = text name = login value = login />
@@ -8,3 +8,5 @@
 	</br>
 	<input type = submit value = send>
 </form>
+
+<a href = index?action=registration>Registration</a>

@@ -60,6 +60,8 @@ try:
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
 
+   statusline = ''
+
    if action == 'showsection':
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
@@ -79,6 +81,12 @@ try:
       cookie['passwd'] = '0'
       print cookie
       print 'location: index.py'
+   elif action == 'registration':
+      genderline = ''
+      data = db.Run("select * from genders")
+      for x in data:
+         genderline += '<input type="checkbox" name="gender" value="' + str(x[0]) + '" />' + x[1]
+      content = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
@@ -92,7 +100,7 @@ try:
    print "Content-Type: text/html"
    print   
       
-   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + db.CountOfQuery(), 'userinfo' : userinfo }
+   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    

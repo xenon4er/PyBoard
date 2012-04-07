@@ -9,8 +9,12 @@
 	<input type = password name = passwd value = passwd />
 	<p>Retry Password:</p>
 	<input type = password name = passwd value = passwd />
-	<p>E-Mail:</p>
+	<p>E-Mail :</p>
 	<input type = text name = email  />
+	<p>E-Mail :</p>
+	<input type = text name = email  />
+	<p>Gender :</p>
+	{$gender}
 	</br>
 	<input type = submit value = send>
 </form>

@@ -8,3 +8,5 @@
 	</br>
 	<input type = submit value = send>
 </form>
+
+<a href = index.py?action=registration>Registration</a>
