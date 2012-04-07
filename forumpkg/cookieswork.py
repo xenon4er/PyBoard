@@ -11,15 +11,23 @@ import cgitb
 
 import Cookie
 
+import userinfo
 
-def ReadCookies(cookie):
+def ReadCookies(cookie, db):
    cookie_string = os.environ.get('HTTP_COOKIE')
    lastvisit = 'Welcome! (First visit or cookies disabled)'
+   usrinf = userinfo.User(None)
    if cookie_string:
       cookie.load(cookie_string)
       if cookie['lastvisit'] != None :
          lasttime = float(cookie['lastvisit'].value)
          lastvisit = 'Last visit:' + str( time.asctime(time.localtime(lasttime)) )
+      if (cookie['userid'] != None) and (cookie['passwd'] != None) :
+         sql = "select tmphash from users where users_id = " + str(cookie['userid'])
+         data = db.Run(sql)
+         if (len(data) == 1) and (str(data[0][0]) == str(cookie['passwd'])):
+            usrinf = userinfo.User(int(cookie['userid']))
    res = {}
    res ['lastvisit'] = lastvisit
+   res ['userinfo'] = usrinf
    return res

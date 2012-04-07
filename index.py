@@ -11,6 +11,8 @@ import cgitb
 
 import Cookie
 
+import hashlib
+
 import sha
 
 import shelve
@@ -42,7 +44,7 @@ try:
    title = data[0][0]#default title
    
    cookie = Cookie.SimpleCookie()   
-   cookiesinfo = ReadCookies(cookie)
+   cookiesinfo = ReadCookies(cookie, db)
 
    content = ''
 

@@ -11,6 +11,10 @@ import cgitb
 
 import Cookie
 
+import hashlib
+
+import sha
+
 import shelve
 
 import forumpkg.templater as templater
