@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 07 2012 г., 13:45
+-- Время создания: Апр 07 2012 г., 16:50
 -- Версия сервера: 5.1.61
 -- Версия PHP: 5.3.6-13ubuntu3.6
 
@@ -148,7 +148,7 @@ CREATE TABLE IF NOT EXISTS `sections` (
   `fk_sct_prnt_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`sct_id`),
   KEY `fk_sct_prnt_id` (`fk_sct_prnt_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Дамп данных таблицы `sections`
@@ -156,7 +156,24 @@ CREATE TABLE IF NOT EXISTS `sections` (
 
 INSERT INTO `sections` (`sct_id`, `sct_name`, `description`, `create_date`, `fk_sct_prnt_id`) VALUES
 (2, 'Others', 'Section about all', '2012-04-07 00:00:00', NULL),
-(3, 'Tech Section', 'Techincal support', '2012-04-07 00:00:00', NULL);
+(3, 'Tech Section', 'Techincal support', '2012-04-07 00:00:00', NULL),
+(4, 'PyBoard support', NULL, '2012-04-07 00:00:00', 3),
+(5, 'Python', 'About Python', '2012-04-07 00:00:00', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `sessions`
+--
+
+CREATE TABLE IF NOT EXISTS `sessions` (
+  `sssn_id` int(11) NOT NULL AUTO_INCREMENT,
+  `fk_user_id` int(11) NOT NULL,
+  `begin_date` datetime NOT NULL,
+  `sid` int(11) NOT NULL,
+  PRIMARY KEY (`sssn_id`),
+  KEY `fk_user_id` (`fk_user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -187,6 +204,7 @@ INSERT INTO `settings` (`stngs_id`, `text`, `st_key`) VALUES
 CREATE TABLE IF NOT EXISTS `users` (
   `users_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
+  `passwdhash` int(11) NOT NULL,
   `email` varchar(255) NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   `fk_gndr_id` int(11) NOT NULL,
@@ -246,9 +264,9 @@ ALTER TABLE `messages`
 -- Ограничения внешнего ключа таблицы `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_5` FOREIGN KEY (`fk_cntr_id`) REFERENCES `countries` (`cntr_id`),
   ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`fk_gndr_id`) REFERENCES `genders` (`gndr_id`),
-  ADD CONSTRAINT `users_ibfk_4` FOREIGN KEY (`fk_usr_st_id`) REFERENCES `user_states` (`st_id`);
+  ADD CONSTRAINT `users_ibfk_4` FOREIGN KEY (`fk_usr_st_id`) REFERENCES `user_states` (`st_id`),
+  ADD CONSTRAINT `users_ibfk_5` FOREIGN KEY (`fk_cntr_id`) REFERENCES `countries` (`cntr_id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
