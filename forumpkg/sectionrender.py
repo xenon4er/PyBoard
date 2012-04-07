@@ -21,5 +21,20 @@ def rendersections(config, db, tmpr, prnt_id=None):
          res += tmp 
    else:
       res += 'No sections'
+   
+
+   sql = "select msg_id, text, create_date from messages where fk_msg_prnt_id is NULL and fk_sct_id "
+   if prnt_id == None:
+      sql += "is NULL"
+   else:
+      sql += "=" + str(prnt_id)
+   data = db.Run(sql)   
+
+   if len(data) != 0:
+      for x in data:
+         tmp = tmpr.MkPageFromFile("templates/inner_templates/section_tmp.xml", {'section_name' : str(x[0]), 'section_desc' : str(x[1]), 'sect_href' :  'index.py?action=showsection&value=' + str(x[2]) })
+         res += tmp 
+   else:
+      res += 'No themes'
 
    return res

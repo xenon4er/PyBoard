@@ -24,7 +24,7 @@ class MySQLWork:
         self.db.commit()
         self.db.close()
     
-    def CountOfQuery():
+    def CountOfQuery(self):
         return len(self.log)
     
     def Run(self,str):

@@ -77,6 +77,7 @@ try:
    elif action == 'exit':
       cookie['userid'] = '0'
       cookie['passwd'] = '0'
+      print cookie
       print 'location: index.py'
 
    if content == '':   
@@ -91,7 +92,7 @@ try:
    print "Content-Type: text/html"
    print   
       
-   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'], 'userinfo' : userinfo }
+   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + db.CountOfQuery(), 'userinfo' : userinfo }
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    

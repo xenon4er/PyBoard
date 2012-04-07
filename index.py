@@ -92,7 +92,7 @@ try:
    print "Content-Type: text/html"
    print   
       
-   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'], 'userinfo' : userinfo }
+   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    
