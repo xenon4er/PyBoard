@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 07 2012 г., 13:11
+-- Время создания: Апр 07 2012 г., 13:45
 -- Версия сервера: 5.1.61
 -- Версия PHP: 5.3.6-13ubuntu3.6
 
@@ -143,11 +143,20 @@ CREATE TABLE IF NOT EXISTS `rules` (
 CREATE TABLE IF NOT EXISTS `sections` (
   `sct_id` int(11) NOT NULL AUTO_INCREMENT,
   `sct_name` varchar(255) NOT NULL,
+  `description` text,
   `create_date` datetime NOT NULL,
-  `fk_sct_prnt_id` int(11) NOT NULL,
+  `fk_sct_prnt_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`sct_id`),
   KEY `fk_sct_prnt_id` (`fk_sct_prnt_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+
+--
+-- Дамп данных таблицы `sections`
+--
+
+INSERT INTO `sections` (`sct_id`, `sct_name`, `description`, `create_date`, `fk_sct_prnt_id`) VALUES
+(2, 'Others', 'Section about all', '2012-04-07 00:00:00', NULL),
+(3, 'Tech Section', 'Techincal support', '2012-04-07 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
