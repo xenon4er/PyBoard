@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Апр 07 2012 г., 21:47
+-- Время создания: Апр 07 2012 г., 23:46
 -- Версия сервера: 5.1.61
 -- Версия PHP: 5.3.6-13ubuntu3.6
 
@@ -116,14 +116,16 @@ CREATE TABLE IF NOT EXISTS `messages` (
   KEY `fk_msg_st_id` (`fk_msg_st_id`),
   KEY `fk_sndr_usr_id` (`fk_sndr_usr_id`),
   KEY `fk_sct_id` (`fk_sct_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Дамп данных таблицы `messages`
 --
 
 INSERT INTO `messages` (`msg_id`, `text`, `create_date`, `changed_date`, `fk_msg_prnt_id`, `fk_msg_st_id`, `fk_sndr_usr_id`, `fk_sct_id`) VALUES
-(2, 'First msg :)', '2012-04-07 00:00:00', NULL, NULL, 1, 3, NULL);
+(2, 'First msg :)', '2012-04-07 00:00:00', NULL, NULL, 1, 3, NULL),
+(3, 'second', '2012-04-07 00:00:01', NULL, 2, 1, 3, 2),
+(7, 'Hi!', '2012-04-07 23:45:03', NULL, 2, 1, 6, NULL);
 
 -- --------------------------------------------------------
 
@@ -247,10 +249,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`users_id`, `name`, `passwdhash`, `tmphash`, `email`, `avatar`, `fk_gndr_id`, `fk_usr_st_id`, `fk_cntr_id`) VALUES
-(3, 'Daiver', '0', '773963a8bbc1869298a76331da24d42a6bb9d3b1', 'ra22341@ya.ru', NULL, 1, NULL, NULL),
-(4, 'user', 'pass', '773963a8bbc1869298a76331da24d42a6bb9d3b1', 'ya@ya.ru', NULL, 1, 1, NULL),
-(6, 'admin', 'ad87109bfff0765f4dd8cf4943b04d16a4070fea', '773963a8bbc1869298a76331da24d42a6bb9d3b1', 'empty', NULL, 1, 1, NULL),
-(8, 'dark', '5f6955d227a320c7f1f6c7da2a6d96a851a8118f', '773963a8bbc1869298a76331da24d42a6bb9d3b1', '890', NULL, 1, 1, NULL);
+(3, 'Daiver', '0', '574d69895c5c6fe0cb837c881cf0f73fd5761c8c', 'ra22341@ya.ru', NULL, 1, NULL, NULL),
+(4, 'user', 'pass', '574d69895c5c6fe0cb837c881cf0f73fd5761c8c', 'ya@ya.ru', NULL, 1, 1, NULL),
+(6, 'admin', 'ad87109bfff0765f4dd8cf4943b04d16a4070fea', '574d69895c5c6fe0cb837c881cf0f73fd5761c8c', 'empty', NULL, 1, 1, NULL),
+(8, 'dark', '5f6955d227a320c7f1f6c7da2a6d96a851a8118f', '574d69895c5c6fe0cb837c881cf0f73fd5761c8c', '890', NULL, 1, 1, NULL);
 
 -- --------------------------------------------------------
 
