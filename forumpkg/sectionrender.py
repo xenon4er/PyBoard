@@ -25,7 +25,8 @@ def rendermssgs(config, db, tmpr, prnt_id):
    return res
 
 def rendersections(config, db, tmpr, prnt_id=None):
-   res = '<h2>Sections:</h2>'
+   res = '<h5  align = right><a href = index.py?action=newtheme&value=' + str(prnt_id) + '>[New Theme]</a></h6>'   
+   res += '<h2>Sections:</h2>'
    sql = "select sct_name, description, sct_id from sections where fk_sct_prnt_id "
    if prnt_id == None:
       sql += "is NULL"

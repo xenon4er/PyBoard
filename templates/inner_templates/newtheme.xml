@@ -1,0 +1,13 @@
+</br>
+
+<form align = left action = index.py method=get>
+	<input type = hidden name = sct value = {$sct} />
+	<input type = hidden name = action value = mktheme />
+	<input type = hidden name = prnt value = {$prnt} />
+	<input type = hidden name = usr_id value = {$usr_id} />
+	<p>Text:</p>
+	<textarea width = 300 name = text ></textarea>
+	</br>
+	<input type = submit value = send>
+</form>
+

@@ -122,6 +122,15 @@ try:
       sendform.send(db, cookie, form)
       print 'location: index.py?action=showmessage&value=' + form.getfirst('prnt', 'empty')
 
+   elif action == 'newtheme':
+      numberofsec = form.getfirst('value', 'empty')
+      content += sendform.newtheme(tmpr, db, cookiesinfo['userinfo'], numberofsec)
+
+   elif action == 'mktheme':
+      sendform.mktheme(db, cookie, form)
+      print 'location: index.py'
+
+
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
 
