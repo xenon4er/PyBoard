@@ -11,6 +11,8 @@ from forumpkg.Exceptions.PyBoardException import *
 
 from forumpkg.Exceptions.DBConnectException import *
 
+from forumpkg.sectionrender import *
+
 tmpr = templater.Templater()
 
 try:
@@ -32,7 +34,9 @@ try:
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
 
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title})
+   content = rendersections(conf.conf,db,tmpr)
+
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content})
    
 
 except PyBoardException, e:

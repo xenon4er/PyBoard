@@ -29,9 +29,6 @@ try:
 
         sql = str
         data = db.Run(sql)
-
-        #db.commit()
-        #data = cursor.fetchall()
         for x in data:
             print x
         str = raw_input('~>')

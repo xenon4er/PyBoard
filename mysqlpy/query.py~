@@ -4,7 +4,6 @@
 from mysqlwork import *
 import config as conf
 
-# подключаемся к базе данных (не забываем указать кодировку, а то в базу запишутся иероглифы)
 db = MySQLWork(host=conf.conf['dbhost'], user=conf.conf['dbuser'], passwd=conf.conf['dbpassword'], db=conf.conf['dbname'])
 
 str = '1'

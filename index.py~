@@ -11,6 +11,8 @@ from forumpkg.Exceptions.PyBoardException import *
 
 from forumpkg.Exceptions.DBConnectException import *
 
+from forumpkg.sectionrender import *
+
 tmpr = templater.Templater()
 
 try:
@@ -30,11 +32,11 @@ try:
    form = cgi.FieldStorage() # instantiate only once!
    
    data = db.Run("select text from settings  where st_key = 'ForumName'")
-   content = data[0][0]
-   '''for x in data:
-      content += str(x)'''
+   title = data[0][0]#default title
 
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'content' : content})
+   content = rendersections(conf.conf,db,tmpr)
+
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title})
    
 
 except PyBoardException, e:
