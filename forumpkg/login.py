@@ -5,13 +5,13 @@ import time
 
 import sha
 
-def trylogin(cookies, db, login,pass):
+def trylogin(cookies, db, login, passwd):
    sql = "select passwdhash, users_id from users where users_name = " + login
    data = db.Run(sql)
    if len(data) == 0:
       return -1
 
-   if data[0][0] != pass:
+   if data[0][0] != passwd:
       return -2
    tmphash = sha.new(repr(time.time())).hexdigest()
    sql = "update users set tmphash = " + str(tmphash)

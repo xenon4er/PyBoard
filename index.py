@@ -65,11 +65,13 @@ try:
    # Output the HTTP message containing the cookie
    print cookie
 
+   if cookiesinfo['userinfo'].guest:
+      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
 
    print "Content-Type: text/html"
    print   
       
-   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] }
+   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'], 'userinfo' : userinfo }
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    

@@ -1,9 +1,9 @@
 
 <form action = index.py?action=login method=post>
 	<p>Login:</p>
-	<input type = text value = login />
+	<input type = text value = login/>
 	<p>Password:</p>
-	<input type = password value = passwd />
+	<input type = password value = passwd/>
 	</br>
 	<input type = submit value = send>
 </form>
