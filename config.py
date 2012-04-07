@@ -6,7 +6,7 @@
 conf = {}
 
 conf ['dbuser'] = 'root'
-conf ['dbpassword'] = 'pass'
+conf ['dbpassword'] = 'www22341'
 conf ['dbhost'] = 'localhost'
 conf ['dbname'] = 'ForumDB'
 conf ['debug'] = True
