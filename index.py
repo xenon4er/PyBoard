@@ -11,6 +11,10 @@ import cgitb
 
 import Cookie
 
+import sha
+
+import shelve
+
 import forumpkg.templater as templater
 
 from forumpkg.Exceptions.PyBoardException import *

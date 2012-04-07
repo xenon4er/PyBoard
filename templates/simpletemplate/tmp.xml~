@@ -26,19 +26,19 @@
 					{$content}
 				</p>
 			</th>
-			<th width = 100>
+			<th width = 200>
 			</th>	
 		</tr>
 		<tr>
 			<th width = 100>
-				{$lastvisit}
+				<h6>{$lastvisit}</h6>
 			</th>
 			<th>
 				<p >
 
 				</p>
 			</th>
-			<th width = 100>
+			<th width = 200>
 				<h6>Server time is {$server_time} </h6>
 			</th>	
 		</tr>

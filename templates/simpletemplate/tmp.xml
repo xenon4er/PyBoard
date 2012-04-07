@@ -26,7 +26,8 @@
 					{$content}
 				</p>
 			</th>
-			<th width = 100>
+			<th width = 200>
+				{$userinfo}
 			</th>	
 		</tr>
 		<tr>
@@ -38,7 +39,7 @@
 
 				</p>
 			</th>
-			<th width = 100>
+			<th width = 200>
 				<h6>Server time is {$server_time} </h6>
 			</th>	
 		</tr>
