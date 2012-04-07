@@ -116,7 +116,11 @@ try:
       if numberofsec != 'empty':
          content = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
       if not cookiesinfo['userinfo'].guest:
-         content += sendform.rend(tmpr, cookiesinfo['userinfo'], numberofsec)
+         content += sendform.rend(tmpr, db, cookiesinfo['userinfo'], numberofsec)
+
+   elif action == 'sendmsg':
+      sendform.send(db, cookie, form)
+      print 'location: index.py?action=showmessage&value=' + form.getfirst('prnt', 'empty')
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
