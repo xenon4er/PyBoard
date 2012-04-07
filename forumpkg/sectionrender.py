@@ -31,10 +31,12 @@ def rendersections(config, db, tmpr, prnt_id=None):
    data = db.Run(sql)   
 
    if len(data) != 0:
+      res += '<b>Themes:</b></br><table width = 100% border = 1>'
       for x in data:
-         tmp = tmpr.MkPageFromFile("templates/inner_templates/section_tmp.xml", {'section_name' : str(x[0]), 'section_desc' : str(x[1]), 'sect_href' :  'index.py?action=showsection&value=' + str(x[2]) })
+         tmp = tmpr.MkPageFromFile("templates/inner_templates/msg_tmp.xml", {'text' : str(x[1]), 'date' : str(x[2]), 'sect_href' :  'index.py?action=showsection&value=' + str(x[2]) })
          res += tmp 
+      res += '</table>'
    else:
-      res += 'No themes'
+      res += '</br>No themes'
 
    return res

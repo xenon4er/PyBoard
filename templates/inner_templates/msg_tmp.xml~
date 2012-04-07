@@ -1,6 +1,6 @@
 
 
-	<tr bgcolor = #006699>
+	<tr bgcolor = #0066	99>
 		<th width = 50>
 			<b>{$username}</b>
 		</th>
