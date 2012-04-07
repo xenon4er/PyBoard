@@ -1,13 +1,13 @@
 
 
-	<tr bgcolor = #006699>
+	<tr bgcolor = #006699 align = left>
 		<th width = 50>
 			<b>{$username}</b>
 		</th>
 
 		<th width = 100%>
 			{$text}</br>
-			<h6>{$date}</h6>
+			<h6 align = right>{$date}</h6>
 		</th>
 
 	</tr>

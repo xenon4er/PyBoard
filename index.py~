@@ -100,6 +100,8 @@ try:
          if regres == -2:
             statusline = 'This email already exists'
          if regres == -3:
+            statusline = 'Choose gender!'
+         if regres == -4:
             statusline = 'inner error'
          if regres == 1:
             print 'location: index.py'
@@ -107,7 +109,10 @@ try:
 
       content = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
          
-
+   elif action == 'showmessage':
+      numberofsec = form.getfirst('value', 'empty')
+      if numberofsec != 'empty':
+         content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)

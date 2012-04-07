@@ -109,7 +109,10 @@ try:
 
       content = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
          
-
+   elif action == 'showmessage':
+      numberofsec = form.getfirst('value', 'empty')
+      if numberofsec != 'empty':
+         content = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
