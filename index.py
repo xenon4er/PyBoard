@@ -3,6 +3,8 @@
 
 import time
 
+import os
+
 import cgi
 
 import cgitb
@@ -41,6 +43,15 @@ try:
    # Output the HTTP message containing the cookie
    print cookie
 
+   cookie_string = os.environ.get('HTTP_COOKIE')
+   if cookie_string != '':
+      cookie.load(cookie_string)
+      try:
+         lasttime = float(cookie['lastvisit'].value)
+         lastvisit = 'Last visit:' + str( time.asctime(time.localtime(lasttime)) )
+      except:
+         lastvisit = 'Welcome! (First visit or cookies disabled)'
+
    content = ''
 
    form = cgi.FieldStorage() # instantiate only once!
@@ -59,7 +70,9 @@ try:
    print "Content-Type: text/html"
    print   
       
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())) })
+   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : lastvisit }
+
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    
 
 except PyBoardException, e:
