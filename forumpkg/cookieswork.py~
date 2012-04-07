@@ -16,7 +16,7 @@ import userinfo
 def ReadCookies(cookie, db):
    cookie_string = os.environ.get('HTTP_COOKIE')
    lastvisit = 'Welcome! (First visit or cookies disabled)'
-   usrinf = None
+   usrinf = userinfo.User(None)
    if cookie_string:
       cookie.load(cookie_string)
       if cookie['lastvisit'] != None :
