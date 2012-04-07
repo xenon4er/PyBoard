@@ -72,7 +72,7 @@ try:
    elif action == 'login':
       usr_login = form.getfirst('login', 'empty')
       usr_passwd = form.getfirst('passwd', 'empty')
-      usr_id = logon.trylogin(cookie, db, usr_login, '0')
+      usr_id = logon.trylogin(cookie, db, usr_login, usr_passwd)
       if usr_id == -1:
          userinfo = 'User not exist</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
       if usr_id == -2:
@@ -91,7 +91,7 @@ try:
       genderline = ''
       data = db.Run("select * from genders")
       for x in data:
-         genderline += '<input type="radio" name="gender" value="' + str(x[0]) + '" />' + x[1] + '</br>'
+         genderline += '<input type="radio" name="ngender" value="' + str(x[0]) + '" />' + x[1] + '</br>'
 
       if 'nlogin' in form:
          regres = reg.TryRegister(db, form)
@@ -99,6 +99,13 @@ try:
             statusline = 'This login already exists'
          if regres == -2:
             statusline = 'This email already exists'
+         if regres == -3:
+            statusline = 'Choose gender!'
+         if regres == -4:
+            statusline = 'inner error'
+         if regres == 1:
+            print 'location: index.py'
+
 
       content = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
          

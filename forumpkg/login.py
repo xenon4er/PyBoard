@@ -11,7 +11,7 @@ def trylogin(cookie, db, login, passwd):
    if len(data) == 0:
       return -1
 
-   if str(data[0][0]) != str(passwd):
+   if str(data[0][0]) != str(sha.new(passwd).hexdigest()):
       return -2
 
    tmphash = sha.new(repr(time.time())).hexdigest()
