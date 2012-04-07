@@ -55,6 +55,8 @@ try:
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
          content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+   elif action == 'login':
+      content = form.getfirst('login', 'empty')
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)

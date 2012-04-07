@@ -55,6 +55,8 @@ try:
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
          content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+   elif action == 'login':
+      content = form.getfirst('usr_login', 'empty')
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
@@ -66,7 +68,7 @@ try:
    print cookie
 
    if cookiesinfo['userinfo'].guest:
-      userinfo = 'You are guest</br>' + ''
+      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
 
    print "Content-Type: text/html"
    print   
