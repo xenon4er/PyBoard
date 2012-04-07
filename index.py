@@ -33,8 +33,18 @@ try:
    
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
+   
+   action = form.getfirst('action', 'empty')
 
-   content = rendersections(conf.conf,db,tmpr)
+   content = ''
+
+   if action == 'showsection':
+      numberofsec = form.getfirst('value', 'empty')
+      if numberofsec != 'empty':
+         content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+
+   if content == '':   
+      content = rendersections(conf.conf,db,tmpr)
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content})
    
