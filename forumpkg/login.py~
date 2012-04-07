@@ -11,14 +11,14 @@ def trylogin(cookie, db, login, passwd):
    if len(data) == 0:
       return -1
 
-   if data[0][0] != passwd:
-      print 'fuck'
+   if str(data[0][0]) != str(passwd):
       return -2
 
    tmphash = sha.new(repr(time.time())).hexdigest()
-   sql = "update users set tmphash = " + str(tmphash)
+
+   sql = "update users set tmphash = '0'"
    db.Run(sql)
-   cookie['passwd'] = tmphash
+   cookie['passwd'] = '0'
    cookie['userid'] = str(data[0][1])
    return 1
 

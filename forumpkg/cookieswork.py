@@ -23,10 +23,11 @@ def ReadCookies(cookie, db):
          lasttime = float(cookie['lastvisit'].value)
          lastvisit = 'Last visit:' + str( time.asctime(time.localtime(lasttime)) )
       if ('userid' in cookie ) and ('passwd' in cookie) :
-         sql = "select tmphash from users where users_id = " + str(cookie['userid'])
+         sql = "select tmphash from users where users_id = " + str(cookie['userid'].value) + ";"
          data = db.Run(sql)
-         if (len(data) == 1) and (str(data[0][0]) == str(cookie['passwd'])):
-            usrinf = userinfo.User(int(cookie['userid']), db)
+         if (len(data) == 1) and ((data[0][0]) == (cookie['passwd'].value)):
+
+            usrinf = userinfo.User(int(cookie['userid'].value), db)
    res = {}
    res ['lastvisit'] = lastvisit
    res ['userinfo'] = usrinf

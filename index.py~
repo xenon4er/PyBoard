@@ -51,6 +51,8 @@ try:
    userinfo = 'Some string :) '
    if cookiesinfo['userinfo'].guest:
       userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+   else:
+      userinfo = 'Hello, ' cookiesinfo['userinfo'].__str__()
 
 
    content = ''
@@ -65,11 +67,14 @@ try:
    elif action == 'login':
       usr_login = form.getfirst('login', 'empty')
       usr_passwd = form.getfirst('passwd', 'empty')
-      usr_id = logon.trylogin(cookie, db, usr_login, 0)
+      usr_id = logon.trylogin(cookie, db, usr_login, '0')
       if usr_id == -1:
          userinfo = 'User not exist</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
       if usr_id == -2:
          userinfo = 'Wrong password</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+      if usr_id == 1:
+
+         print 'location: index.py'
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
@@ -80,10 +85,6 @@ try:
    # Output the HTTP message containing the cookie
    print cookie
    
-   userinfo = ''
-   if cookiesinfo['userinfo'].guest:
-      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
-
    print "Content-Type: text/html"
    print   
       
