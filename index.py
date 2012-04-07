@@ -21,6 +21,8 @@ import forumpkg.templater as templater
 
 import forumpkg.login as logon
 
+import forumpkg.sendform as sendform
+
 import forumpkg.registration as reg
 
 from forumpkg.Exceptions.PyBoardException import *
@@ -113,6 +115,8 @@ try:
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
          content = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
+      if not cookiesinfo['userinfo'].guest:
+         content += sendform.rend(tmpr, cookiesinfo['userinfo'], numberofsec)
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)

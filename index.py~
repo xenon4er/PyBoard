@@ -21,6 +21,8 @@ import forumpkg.templater as templater
 
 import forumpkg.login as logon
 
+import forumpkg.sendform as sendform
+
 import forumpkg.registration as reg
 
 from forumpkg.Exceptions.PyBoardException import *
@@ -112,7 +114,9 @@ try:
    elif action == 'showmessage':
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
-         content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+         content = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
+      if not cookiesinfo['userinfo'].guest:
+         content += sendform.rend(tmpr, cookiesinfo['userinfo'])
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
