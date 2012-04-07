@@ -1,0 +1,18 @@
+<html>
+	<head>
+		<title>
+			{$errmsg}
+		</title>
+	</head>
+
+	<body>
+		<h2 color=red>
+			{$errmsg}
+		</h2>
+
+		<p>
+			{$errtxt}
+		</p>
+
+	</body>
+<html>
