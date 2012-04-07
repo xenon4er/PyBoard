@@ -6,7 +6,10 @@
 		</th>
 
 		<th width = 100%>
-			{$text}</br>
+			<a href = index.py?action=showmessage&value={$number}>#{$number}</a>
+			</br>
+			{$text}
+			</br>
 			<h6 align = right>{$date}</h6>
 		</th>
 

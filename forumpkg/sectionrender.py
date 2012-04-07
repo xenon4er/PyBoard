@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+def rendermessage(tmpr, db, x):
+   udata = db.Run("select name from users where users_id = " + str(x[3]))   
+   tmp = tmpr.MkPageFromFile("templates/inner_templates/msg_tmp.xml", {'number' : str(x[0]), 'number' : str(x[0]),'text' : str(x[1]) , 'date' : str(x[2]), 'username' :  udata[0][0] })
+   return tmp 
 
 def rendermssgs(config, db, tmpr, prnt_id):
    res = ''
@@ -10,9 +14,8 @@ def rendermssgs(config, db, tmpr, prnt_id):
    if len(data) != 0:
       res += '<b>Themes:</b></br><table width = 100% border = 1>'
       for x in data:
-         udata = db.Run("select name from users where users_id = " + str(x[3]))   
-         tmp = tmpr.MkPageFromFile("templates/inner_templates/msg_tmp.xml", {'text' : "<a href = index.py?action=showmessage&value=" + str(x[0]) + "> " + str(x[1]) + "</a>", 'date' : str(x[2]), 'username' :  udata[0][0] })
-         res += tmp 
+         res += rendermessage(tmpr, db, x) 
+
       res += '</table>'
    else:
       res += '</br>No themes'
@@ -49,9 +52,7 @@ def rendersections(config, db, tmpr, prnt_id=None):
    if len(data) != 0:
       res += '<b>Themes:</b></br><table width = 100% border = 1>'
       for x in data:
-         udata = db.Run("select name from users where users_id = " + str(x[3]))   
-         tmp = tmpr.MkPageFromFile("templates/inner_templates/msg_tmp.xml", {'text' : "<a href = index.py?action=showmessage&value=" + str(x[0]) + "> " + str(x[1]) + "</a>", 'date' : str(x[2]), 'username' :  udata[0][0] })
-         res += tmp 
+         res += rendermessage(tmpr, db, x) 
       res += '</table>'
    else:
       res += '</br>No themes'
