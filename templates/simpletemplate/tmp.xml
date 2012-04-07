@@ -6,13 +6,30 @@
 	</head>
 
 	<body>
-		<h2 align = center>
-			PyBoard
-		</h2>
-
-		<p >
-			{$content}
-		</p>
+		<table width = 100% border = 1>
+		<tr>
+			<th width = 100>
+			</th>
+			<th>
+				<h2 align = center>
+					PyBoard
+				</h2>
+			</th>
+			<th width = 100>
+			</th>
+		</tr>
+		<tr>
+			<th width = 100>
+			</th>
+			<th>
+				<p >
+					{$content}
+				</p>
+			</th>
+			<th width = 100>
+			</th>	
+		</tr>
+		<table>
 
 	</body>
 <html>

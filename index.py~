@@ -21,7 +21,7 @@ try:
    try:
       db = mysql.MySQLWork(host=conf.conf['dbhost'], user=conf.conf['dbuser'], passwd=conf.conf['dbpassword'], db=conf.conf['dbname'])
    except:
-      raise DBConnectException.DBConnectException()
+      raise DBConnectException()
       
    
    print "Content-Type: text/html"
@@ -29,10 +29,15 @@ try:
    
    form = cgi.FieldStorage() # instantiate only once!
    
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {})
+   data = db.Run("select text from settings  where st_key = 'ForumName'")
+   content = data[0][0]
+   '''for x in data:
+      content += str(x)'''
+
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'content' : content})
    
 
-except Exceptions.PyBoardException.PyBoardException, e:
+except PyBoardException, e:
    print "Content-Type: text/html"
    print   
    print tmpr.MkPageFromFile("templates/error/errmsg.xml", {'errmsg' : e.message, 'errtxt' : e.text})

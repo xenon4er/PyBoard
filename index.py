@@ -29,7 +29,10 @@ try:
    
    form = cgi.FieldStorage() # instantiate only once!
    
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {})
+   data = db.Run("select text from settings  where st_key = 'ForumName'")
+   title = data[0][0]#default title
+
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title})
    
 
 except PyBoardException, e:

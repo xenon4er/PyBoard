@@ -1,18 +1,35 @@
 <html>
 	<head>
 		<title>
-			PyBoard
+			{$title} - PyBoard
 		</title>
 	</head>
 
 	<body>
-		<h2 align = center>
-			PyBoard
-		</h2>
-
-		<p >
-			{$content}
-		</p>
+		<table width = 100% border = 1>
+		<tr>
+			<th width = 40>
+			</th>
+			<th>
+				<h2 align = center>
+					PyBoard
+				</h2>
+			</th>
+			<th width = 40>
+			</th>
+		</tr>
+		<tr>
+			<th width = 40>
+			</th>
+			<th>
+				<p >
+					{$content}
+				</p>
+			</th>
+			<th width = 40>
+			</th>	
+		</tr>
+		<table>
 
 	</body>
 <html>
