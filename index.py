@@ -19,6 +19,8 @@ import shelve
 
 import forumpkg.templater as templater
 
+import forumpkg.login as logon
+
 from forumpkg.Exceptions.PyBoardException import *
 
 from forumpkg.Exceptions.DBConnectException import *
