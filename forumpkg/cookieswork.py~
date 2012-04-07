@@ -27,7 +27,7 @@ def ReadCookies(cookie, db):
          data = db.Run(sql)
          if (len(data) == 1) and ((data[0][0]) == (cookie['passwd'].value)):
 
-            usrinf = userinfo.User(int(cookie['userid']), db)
+            usrinf = userinfo.User(int(cookie['userid'].value), db)
    res = {}
    res ['lastvisit'] = lastvisit
    res ['userinfo'] = usrinf

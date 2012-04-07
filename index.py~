@@ -52,7 +52,7 @@ try:
    if cookiesinfo['userinfo'].guest:
       userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
    else:
-      userinfo = 'Hello, ' cookiesinfo['userinfo'].__str__()
+      userinfo = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
 
 
    content = ''
@@ -73,8 +73,11 @@ try:
       if usr_id == -2:
          userinfo = 'Wrong password</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
       if usr_id == 1:
-
          print 'location: index.py'
+   elif action == 'exit':
+      cookie['userid'] = '0'
+      cookie['passwd'] = '0'
+      print 'location: index.py'
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
