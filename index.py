@@ -48,6 +48,11 @@ try:
    cookie = Cookie.SimpleCookie()   
    cookiesinfo = ReadCookies(cookie, db)
 
+   userinfo = 'Some string :) '
+   if cookiesinfo['userinfo'].guest:
+      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+
+
    content = ''
 
    form = cgi.FieldStorage() # instantiate only once!
@@ -58,7 +63,13 @@ try:
       if numberofsec != 'empty':
          content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
    elif action == 'login':
-      content = form.getfirst('login', 'empty')
+      usr_login = form.getfirst('login', 'empty')
+      usr_passwd = form.getfirst('passwd', 'empty')
+      usr_id = logon.trylogin(cookie, db, usr_login, 0)
+      if usr_id == -1:
+         userinfo = 'User not exist</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+      if usr_id == -2:
+         userinfo = 'Wrong password</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
 
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
@@ -68,10 +79,7 @@ try:
 
    # Output the HTTP message containing the cookie
    print cookie
-
-   if cookiesinfo['userinfo'].guest:
-      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
-
+   
    print "Content-Type: text/html"
    print   
       
