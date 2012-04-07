@@ -29,6 +29,18 @@
 			<th width = 100>
 			</th>	
 		</tr>
+		<tr>
+			<th width = 100>
+			</th>
+			<th>
+				<p >
+
+				</p>
+			</th>
+			<th width = 100>
+				<h6>Server time is {$server_time} </h6>
+			</th>	
+		</tr>
 		<table>
 
 	</body>

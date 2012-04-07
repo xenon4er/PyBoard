@@ -8,25 +8,36 @@
 	<body>
 		<table width = 100% border = 1>
 		<tr>
-			<th width = 40>
+			<th width = 100>
 			</th>
 			<th>
 				<h2 align = center>
 					PyBoard
 				</h2>
 			</th>
-			<th width = 40>
+			<th width = 100>
 			</th>
 		</tr>
 		<tr>
-			<th width = 40>
+			<th width = 100>
 			</th>
 			<th>
 				<p >
 					{$content}
 				</p>
 			</th>
-			<th width = 40>
+			<th width = 100>
+			</th>	
+		</tr>
+		<tr>
+			<th width = 100>
+			</th>
+			<th>
+				<p >
+
+				</p>
+			</th>
+			<th width = 100>
 			</th>	
 		</tr>
 		<table>

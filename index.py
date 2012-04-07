@@ -1,9 +1,13 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+import time
+
 import cgi
 
 import cgitb
+
+import Cookie
 
 import forumpkg.templater as templater
 
@@ -26,17 +30,21 @@ try:
       raise DBConnectException()
       
    
-   print "Content-Type: text/html"
-   print   
-   
-   form = cgi.FieldStorage() # instantiate only once!
-   
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
    
-   action = form.getfirst('action', 'empty')
+   cookie = Cookie.SimpleCookie()
+
+   # The SimpleCookie instance is a mapping
+   cookie['lastvisit'] = str(time.time())
+
+   # Output the HTTP message containing the cookie
+   print cookie
 
    content = ''
+
+   form = cgi.FieldStorage() # instantiate only once!
+   action = form.getfirst('action', 'empty')
 
    if action == 'showsection':
       numberofsec = form.getfirst('value', 'empty')
@@ -46,7 +54,12 @@ try:
    if content == '':   
       content = rendersections(conf.conf,db,tmpr)
 
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content})
+
+
+   print "Content-Type: text/html"
+   print   
+      
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())) })
    
 
 except PyBoardException, e:
