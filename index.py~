@@ -32,6 +32,20 @@ tmpr = templater.Templater()#mk templater
 
 #----------- end imports------------
 
+#-----------defs--------------------
+
+def GetSettings(db):#explode settings from db
+   res = {}
+   data = db.Run("select  st_key, text from settings")
+   for x in data:
+      res[x[0]] = x[1]
+
+   return res
+   
+   
+
+#-----------defs--------------------
+
 try:#main 
 
    import config as conf#try to import config file
@@ -42,6 +56,7 @@ try:#main
    except:
       raise DBConnectException()
       
+   settings = GetSettings(db)
 
    cookie = Cookie.SimpleCookie()#create cookie object
    cookiesinfo = ReadCookies(cookie, db)#reading cookies
@@ -50,8 +65,8 @@ try:#main
    #mk template dict
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
    
-   data = db.Run("select text, st_key from settings")
-   tmpdict['title'] = filter(data,lambda x:x[1] == 'ForumName') [0][0]#default title
+
+   tmpdict['title'] = #default title
    
    if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
