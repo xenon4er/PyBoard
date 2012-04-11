@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
-
+#-----------imports------------
 import time
 
 import os
@@ -10,12 +10,6 @@ import cgi
 import cgitb
 
 import Cookie
-
-import hashlib
-
-import sha
-
-import shelve
 
 import forumpkg.templater as templater
 
@@ -33,14 +27,16 @@ from forumpkg.sectionrender import *
 
 from forumpkg.cookieswork import *
 
-tmpr = templater.Templater()
+tmpr = templater.Templater()#mk templater
 
-try:
+#----------- end imports------------
 
-   import config as conf
+try:#main 
+
+   import config as conf#try to import config file
 
    import forumpkg.mysqlwork as mysql
-   try:
+   try:#try connect to db
       db = mysql.MySQLWork(host=conf.conf['dbhost'], user=conf.conf['dbuser'], passwd=conf.conf['dbpassword'], db=conf.conf['dbname'])
    except:
       raise DBConnectException()
@@ -49,10 +45,11 @@ try:
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
    
-   cookie = Cookie.SimpleCookie()   
+   cookie = Cookie.SimpleCookie()#create cookie object
    cookiesinfo = ReadCookies(cookie, db)
 
    userinfo = 'Some string :) '
+
    if cookiesinfo['userinfo'].guest:
       userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
    else:
