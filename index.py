@@ -50,8 +50,8 @@ try:#main
    #mk template dict
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
    
-   data = db.Run("select text from settings  where st_key = 'ForumName'")
-   tmpdict['title'] = data[0][0]#default title
+   data = db.Run("select text, st_key from settings")
+   tmpdict['title'] = filter(lambda x:x[1] == 'ForumName', data) [0][0]#default title
    
    if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})

@@ -50,8 +50,8 @@ try:#main
    #mk template dict
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
    
-   data = db.Run("select text from settings  where st_key = 'ForumName'")
-   tmpdict['title'] = data[0][0]#default title
+   data = db.Run("select text, st_key from settings")
+   tmpdict['title'] = filter(data,lambda x:x[1] == 'ForumName') [0][0]#default title
    
    if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
@@ -143,15 +143,15 @@ try:#main
       
 #   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
 
-   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
+   print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)#send main template
    
 
-except PyBoardException, e:
+except PyBoardException, e:#pyboard exception
    print "Content-Type: text/html"
    print   
    print tmpr.MkPageFromFile("templates/error/errmsg.xml", {'errmsg' : e.message, 'errtxt' : e.text})
 
-except:
+except:#others exceptions
    
    if conf.conf['debug']:
       cgitb.handler()
