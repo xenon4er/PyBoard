@@ -75,13 +75,16 @@ try:#main
 
    #working with GET & POST
    form = cgi.FieldStorage() # instantiate only once!
-   action = form.getfirst('action', 'empty')
+   action = form.getfirst('action', settings['defaultaction'])
+
    #work with current action
 
    if action == 'showsection':#show secitons
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
-         content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+         content = rendersections(conf.conf,db,tmpr,int(numberofsec))
+      else:
+         content = rendersections(conf.conf,db,tmpr)      
 
    elif action == 'login':#try to login
       usr_login = form.getfirst('login', 'empty')

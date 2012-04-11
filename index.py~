@@ -66,7 +66,7 @@ try:#main
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
    
 
-   tmpdict['title'] = #default title
+   tmpdict['title'] = settings['ForumName'] #default title
    
    if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
@@ -76,12 +76,16 @@ try:#main
    #working with GET & POST
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
+   if action == 'empty':
+      action == settings['defaultaction']
    #work with current action
 
    if action == 'showsection':#show secitons
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
-         content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
+         content = rendersections(conf.conf,db,tmpr,int(numberofsec))
+      else:
+         content = rendersections(conf.conf,db,tmpr)      
 
    elif action == 'login':#try to login
       usr_login = form.getfirst('login', 'empty')
