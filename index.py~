@@ -42,26 +42,25 @@ try:#main
    except:
       raise DBConnectException()
       
-#mk template dict
+
+   cookie = Cookie.SimpleCookie()#create cookie object
+   cookiesinfo = ReadCookies(cookie, db)#reading cookies
+
+
+   #mk template dict
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
    
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    tmpdict['title'] = data[0][0]#default title
-   
-   cookie = Cookie.SimpleCookie()#create cookie object
-   cookiesinfo = ReadCookies(cookie, db)#reading cookies
-
    
    if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
    else:
       tmpdict['userinfo'] = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
 
-
+   #working with GET & POST
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
-
-   statusline = ''
 
    if action == 'showsection':
       numberofsec = form.getfirst('value', 'empty')
@@ -86,6 +85,7 @@ try:#main
       print 'location: index.py'
 
    elif action == 'registration':
+      statusline = ''#status line for forms
       #if 'nlogin' not in form:
       genderline = ''
       data = db.Run("select * from genders")

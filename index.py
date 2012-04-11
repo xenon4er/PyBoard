@@ -58,11 +58,9 @@ try:#main
    else:
       tmpdict['userinfo'] = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
 
-
+   #working with GET & POST
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
-
-   statusline = ''
 
    if action == 'showsection':
       numberofsec = form.getfirst('value', 'empty')
@@ -87,6 +85,7 @@ try:#main
       print 'location: index.py'
 
    elif action == 'registration':
+      statusline = ''#status line for forms
       #if 'nlogin' not in form:
       genderline = ''
       data = db.Run("select * from genders")
