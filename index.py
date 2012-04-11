@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
+
 #-----------imports------------
 import time
 
@@ -41,18 +42,18 @@ try:#main
    except:
       raise DBConnectException()
       
-   
-   data = db.Run("select text from settings  where st_key = 'ForumName'")
-   title = data[0][0]#default title
-   
+
    cookie = Cookie.SimpleCookie()#create cookie object
-   cookiesinfo = ReadCookies(cookie, db)
+   cookiesinfo = ReadCookies(cookie, db)#reading cookies
+
 
    #mk template dict
    tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
-
-
-   if cookiesinfo['userinfo'].guest:
+   
+   data = db.Run("select text from settings  where st_key = 'ForumName'")
+   tmpdict['title'] = data[0][0]#default title
+   
+   if cookiesinfo['userinfo'].guest:#Indentefy user
       tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
    else:
       tmpdict['userinfo'] = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
