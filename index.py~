@@ -61,13 +61,14 @@ try:#main
    #working with GET & POST
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
+   #work with current action
 
-   if action == 'showsection':
+   if action == 'showsection':#show secitons
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
          content = rendersections(conf.conf,db,tmpr,int(numberofsec))         
 
-   elif action == 'login':
+   elif action == 'login':#try to login
       usr_login = form.getfirst('login', 'empty')
       usr_passwd = form.getfirst('passwd', 'empty')
       usr_id = logon.trylogin(cookie, db, usr_login, usr_passwd)
@@ -78,21 +79,21 @@ try:#main
       if usr_id == 1:
          print 'location: index.py'
 
-   elif action == 'exit':
+   elif action == 'exit':#logout
       cookie['userid'] = '0'
       cookie['passwd'] = '0'
       print cookie
       print 'location: index.py'
 
-   elif action == 'registration':
+   elif action == 'registration':# try to register
       statusline = ''#status line for forms
       #if 'nlogin' not in form:
-      genderline = ''
+      genderline = ''#gender text
       data = db.Run("select * from genders")
       for x in data:
          genderline += '<input type="radio" name="ngender" value="' + str(x[0]) + '" />' + x[1] + '</br>'
 
-      if 'nlogin' in form:
+      if 'nlogin' in form:#try to register
          regres = reg.TryRegister(db, form)
          if regres == -1:
             statusline = 'This login already exists'
@@ -108,36 +109,36 @@ try:#main
 
       tmpdict['content'] = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
          
-   elif action == 'showmessage':
+   elif action == 'showmessage':#show messages
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
          tmpdict['content'] = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
       if not cookiesinfo['userinfo'].guest:
          tmpdict['content'] += sendform.rend(tmpr, db, cookiesinfo['userinfo'], numberofsec)
 
-   elif action == 'sendmsg':
+   elif action == 'sendmsg':#send messages
       sendform.send(db, cookie, form)
       print 'location: index.py?action=showmessage&value=' + form.getfirst('prnt', 'empty')
 
-   elif action == 'newtheme':
+   elif action == 'newtheme':#form for create new theme
       numberofsec = form.getfirst('value', 'empty')
       tmpdict['content'] += sendform.newtheme(tmpr, db, cookiesinfo['userinfo'], numberofsec)
 
-   elif action == 'mktheme':
+   elif action == 'mktheme':#try create new theme
       sendform.mktheme(db, cookie, form)
       print 'location: index.py'
 
 
-   if tmpdict['content'] == '':   
+   if tmpdict['content'] == '':  #default action 
       tmpdict['content'] = rendersections(conf.conf,db,tmpr)
 
    # The SimpleCookie instance is a mapping
-   cookie['lastvisit'] = str(time.time())
+   cookie['lastvisit'] = str(time.time())# refresh last visit
 
    # Output the HTTP message containing the cookie
-   print cookie
+   print cookie#send cookie
    
-   print "Content-Type: text/html"
+   print "Content-Type: text/html"#send headers
    print   
       
 #   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
