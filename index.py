@@ -144,7 +144,7 @@ try:#main
 
    elif action == 'mktheme':#try create new theme
       sendform.mktheme(db, cookie, form)
-      print 'location: index.py?action=showsection' + form.getfirst('sct', '')
+      print 'location: index.py?action=showsection&value=' + form.getfirst('sct', '')
 
 
    # The SimpleCookie instance is a mapping

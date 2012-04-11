@@ -6,8 +6,8 @@
 conf = {}
 
 conf ['dbuser'] = 'root'
-conf ['dbpassword'] = 'pass'
+conf ['dbpassword'] = 'www22341'
 conf ['dbhost'] = 'localhost'
-conf ['dbname'] = 'ForumDB'
+conf ['dbname'] = 'klimov_k_v'
 conf ['debug'] = True
 conf ['dbprefix'] = ''
