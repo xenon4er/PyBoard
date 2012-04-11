@@ -45,17 +45,16 @@ try:#main
    data = db.Run("select text from settings  where st_key = 'ForumName'")
    title = data[0][0]#default title
    
-   cookie = Cookie.SimpleCookie()   
+   cookie = Cookie.SimpleCookie()#create cookie object
    cookiesinfo = ReadCookies(cookie, db)
 
-   userinfo = 'Some string :) '
    if cookiesinfo['userinfo'].guest:
-      userinfo = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+      tmpdict['userinfo'] = 'You are guest</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
    else:
-      userinfo = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
+      tmpdict['userinfo'] = 'Hello, ' + cookiesinfo['userinfo'].__str__() + '</br><a href = index.py?action=exit><i>Exit</i><a/>'
 
-
-   content = ''
+   #mk template dict
+   tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
 
    form = cgi.FieldStorage() # instantiate only once!
    action = form.getfirst('action', 'empty')
@@ -72,9 +71,9 @@ try:#main
       usr_passwd = form.getfirst('passwd', 'empty')
       usr_id = logon.trylogin(cookie, db, usr_login, usr_passwd)
       if usr_id == -1:
-         userinfo = 'User not exist</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+         tmpdict['userinfo'] = 'User not exist</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
       if usr_id == -2:
-         userinfo = 'Wrong password</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
+         tmpdict['userinfo'] = 'Wrong password</br>' + tmpr.MkPageFromFile("templates/inner_templates/login.xml", {})
       if usr_id == 1:
          print 'location: index.py'
 
@@ -105,14 +104,14 @@ try:#main
             print 'location: index.py'
 
 
-      content = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
+      tmpdict['content'] = tmpr.MkPageFromFile("templates/inner_templates/registration.xml", {'statusline' : statusline, 'text' : '', 'gender' : genderline})
          
    elif action == 'showmessage':
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
-         content = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
+         tmpdict['content'] = rendermssgs(conf.conf,db,tmpr,int(numberofsec))         
       if not cookiesinfo['userinfo'].guest:
-         content += sendform.rend(tmpr, db, cookiesinfo['userinfo'], numberofsec)
+         tmpdict['content'] += sendform.rend(tmpr, db, cookiesinfo['userinfo'], numberofsec)
 
    elif action == 'sendmsg':
       sendform.send(db, cookie, form)
@@ -120,15 +119,15 @@ try:#main
 
    elif action == 'newtheme':
       numberofsec = form.getfirst('value', 'empty')
-      content += sendform.newtheme(tmpr, db, cookiesinfo['userinfo'], numberofsec)
+      tmpdict['content'] += sendform.newtheme(tmpr, db, cookiesinfo['userinfo'], numberofsec)
 
    elif action == 'mktheme':
       sendform.mktheme(db, cookie, form)
       print 'location: index.py'
 
 
-   if content == '':   
-      content = rendersections(conf.conf,db,tmpr)
+   if tmpdict['content'] == '':   
+      tmpdict['content'] = rendersections(conf.conf,db,tmpr)
 
    # The SimpleCookie instance is a mapping
    cookie['lastvisit'] = str(time.time())
@@ -139,7 +138,7 @@ try:#main
    print "Content-Type: text/html"
    print   
       
-   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
+#   tmpdict = {'title' : title, 'content' : content, 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : userinfo }
 
    print tmpr.MkPageFromFile("templates/simpletemplate/tmp.xml", tmpdict)
    
