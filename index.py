@@ -82,9 +82,9 @@ try:#main
    if action == 'showsection':#show secitons
       numberofsec = form.getfirst('value', 'empty')
       if numberofsec != 'empty':
-         content = rendersections(conf.conf,db,tmpr,int(numberofsec))
+         tmpdict['content'] = rendersections(conf.conf,db,tmpr,int(numberofsec))
       else:
-         content = rendersections(conf.conf,db,tmpr)      
+         tmpdict['content'] = rendersections(conf.conf,db,tmpr)      
 
    elif action == 'login':#try to login
       usr_login = form.getfirst('login', 'empty')
@@ -144,11 +144,8 @@ try:#main
 
    elif action == 'mktheme':#try create new theme
       sendform.mktheme(db, cookie, form)
-      print 'location: index.py'
+      print 'location: index.py?action=showsection' + form.getfirst('sct', '')
 
-
-   if tmpdict['content'] == '':  #default action 
-      tmpdict['content'] = rendersections(conf.conf,db,tmpr)
 
    # The SimpleCookie instance is a mapping
    cookie['lastvisit'] = str(time.time())# refresh last visit
