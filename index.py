@@ -63,7 +63,7 @@ try:#main
 
 
    #mk template dict
-   tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery()), 'userinfo' : 'Some string :) ' }
+   tmpdict = {'title' : '', 'content' : '', 'server_time' : str(time.asctime(time.localtime())), 'lastvisit' : '', 'userinfo' : 'Some string :) ' }
    
 
    tmpdict['title'] = settings['ForumName'] #default title
@@ -146,7 +146,7 @@ try:#main
       sendform.mktheme(db, cookie, form)
       print 'location: index.py?action=showsection&value=' + form.getfirst('sct', '')
 
-
+   tmpdict['lastvisit'] = cookiesinfo['lastvisit'] + '</br> queryes used: ' + str(db.CountOfQuery())
    # The SimpleCookie instance is a mapping
    cookie['lastvisit'] = str(time.time())# refresh last visit
 
